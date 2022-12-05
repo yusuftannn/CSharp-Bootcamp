@@ -1,0 +1,12 @@
+KRAL FM = http://46.20.3.204/;type=mp3
+KRAL POP = http://46.20.3.201/;type=mp3
+SÜPER FM = https://17733.live.streamtheworld.com/SUPER_FM.mp3
+POWERTÜRK FM = https://listen.powerapp.com.tr/powerturk/abr/powerturk/128/playlist.m3u8
+NUMBER 1 FM = https://n10101m.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/u_stream_5c9e2f95dcb16_1/playl
+
+
+
+https://www.milliyet.com.tr/
+https://www.hurriyet.com.tr/
+https://www.sozcu.com.tr/
+https://www.sabah.com.tr/

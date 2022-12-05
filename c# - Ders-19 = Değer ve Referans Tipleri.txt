@@ -1,0 +1,13 @@
+int number1 = 10;
+            int number2 = 20;
+            number2 = number1;			-->> 2. sayının değeri 1.sayının değeridir.
+            number1 = 30;			-->> number2 ye number1 in değerini atadığımız için sondaki atamanın önemi yoktur. (ekrana 10 yazar)
+
+            Console.WriteLine(number2);
+
+	    string[] cities1 = new string[] { "Ankara", "Adana", "Afyon" };
+            string[] cities2 = new string[] { "Bursa", "Bolu", "Balıkesir" };
+            cities2 = cities1;							-->> cities2 yi cities1 e döndürür.
+            cities1[0] = "İstanbul";						-->> cities2 kullanılarak yapılan işlemlerde cities1 deki liste gözükür.
+            Console.WriteLine(cities2[0]);					-->> cities1 deki 0 ıncı değeri "istanbul" a çevir
+	   Console.ReadLine();							-->> ekrana cities2 deki 0 ıncı değeri yaz **(ekrana İstanbul yazar.)

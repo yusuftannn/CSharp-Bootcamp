@@ -1,0 +1,18 @@
+Katmanlı projelerde yapılacaklar
+
+solution içinde 3 adet class.library 1 adet windowsform uzantısında proje oluşturduk 
+
+isimleri;
+
+Northwind.Entities
+Nortwind.Business
+Northwind.DataAccess
+Northwind.WebFormsUI		-->> windows form uzantısı 
+
+adlarında projeleri oluşturduktan sonra form projesi hariç diğerlerine
+
+Abstract (soyut) 	-->> interface, abstract classlar bunun içine
+
+Concrete	 
+
+adlarında dosya oluşturduk..

@@ -1,0 +1,5 @@
+*** if yaz "TAB" a 2 kere bas iskeleti yani süslü parantezi kendi kursun.
+
+1- CTRL + K bas sonra ikisini bırak CTRL + D ye bas -> Kodu düzgün okunabilir hale getirme.
+2- CTRL + K bas sonra ikisini bırak + CTRL + C -> yorum satırına çevirir.
+	geri almak için CTRL + K bas sonra ikisini bırak + CTRL + U -> yorum satırını iptal eder.

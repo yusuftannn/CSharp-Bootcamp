@@ -1,0 +1,45 @@
+string city = "Ankara";
+1* Console.WriteLine(city[0]);		-->> city dizisindeki 0 ıncı elemanı yazar ( yani 'A' yazar )
+
+2* foreach (var item in city)
+   {
+      Console.WriteLine(item);		-->> "Ankara" yı tüm harflerini alt alta yazar.
+   }
+      Console.ReadLine();
+
+3* string city2 = "İstanbul";		-->> Ankara ve İstanbul yan yana yazar. (Ankaraİstanbul
+   string result = city + city2;
+   Console.WriteLine(result);
+
+4* Console.WriteLine("{0} {1}", city, city2);		-->> (Ankara İstanbul)
+
+
+***************** STRİNG METODLARIYLA ÇALIŞMA ***************** 
+
+string sentence = "My name is Yusuf";
+
+var result = sentence.Length;			-->> cümle kaç karakterli boşluklar dahil ( 16 karakterli) ekrana yazar.
+var result2 = sentence.Clone();			-->> cümlenin bir tane daha klonunu oluşturur.
+sentence = "My name is methos";				
+
+bool result3 = sentence.EndsWith("s");			-->> cümle s ile bitiyor mu 		true yazar
+bool result4 = sentence.StartsWith("My name");		-->> cümle My name ile başlıyor mu	true yazar.
+
+var result5 = sentence.IndexOf("name");			-->> kaçıncı karakterde olduğunu bulur	*bulamazsa -1 yazar.
+var result6 = sentence.IndexOf(" ");			-->> cümlede birçok boşluk olsada ilk gördüğü boşluk karakterini yazar *M-y-boşluk yani 0-1-2 (ekrana 2 yazar.)
+var result7 = sentence.LastIndexOf(" ");			-->> cümleye boşluk aramaya sondan başlar.
+var result8 = sentence.Insert(0, "HELLO, ");		-->> cümlenin 0 ıncı karakterine "HELLO, " ekler *ekranda "HELLO, My name is methos" yazar.
+var result9 = sentence.Substring(3);			-->> cümleden kesme yapar *yani 3ten itibaren al. ( ekrana "name is methos" yazar.)
+var result9 = sentence.Substring(3,4);			-->> 3.karakter itibaren 4 harf al	( ekrana "name" yazar.)
+var result10 = sentence.ToLower();			-->> cümledeki tüm büyük harfleri küçük harfe çevirir.
+var result11 = sentence.ToUpper();			-->> cümledeki tüm küçük harfleri büyük harfe çevirir.
+var result12 = sentence.Replace(" ", "-");			-->> cümledeki boşluk yerine çizgi koyar.
+var result13 = sentence.Remove(2);			-->> "My" dan sonrasını siler 		( ekrana sadece "My" yazar.)
+var result14 = sentence.Remove(2,5);			-->> 2.karakterden sonra 5 harf sil	( ekrana "My is methos" yazar.)
+
+
+
+Console.WriteLine(result);			-->> parantez içini result2 olarak yazdırırsak cümleyi yazar.
+Console.ReadLine();
+
+

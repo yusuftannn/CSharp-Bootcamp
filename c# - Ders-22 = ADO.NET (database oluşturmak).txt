@@ -1,0 +1,125 @@
+1- View > Sql Server Object Explorer > Databases > ETrade (adında veritabanı oluşturduk.E-Ticaret anlamında)
+
+açılan ekranda alt alta 1er 1er otomatik artması için; 
+*** Id üstüne sağ tık > Properties > Identity Specification > (Is IDentity) > True yaparız.
+
+		Data Type		Allow Nulls : bu kısım işaretli olmaz ise içlerini doldurmak zorunlu olmuş olur (işaret koymadık bizde.)
+Id		int
+Name		varchar(50)
+UnitPrice		money				-->> unitprice : birim fiyat
+StockAmount	int				-->> stockamount : stok miktarı
+Aşağıdan CREATE TABLE[dbo].[Products]			-->> 2. [ ] içinde Table yazıyordu "Products" olarak değiştirdik.
+sol üstten "Update" tuşuna basarız daha sonra da "Update Database" basarız.
+
+yüklendikten sonra ETrade > Tables > dbo.Products olarak kaydeder.
+
+dbo.Products a sağ tık "View Data" (veriyi gör) basarız.
+
+	NAME		UNİTPRİCE	STOCKAMOUNT			-->> Gibi bir sayfa açıldı ve ürünleri kendimizce doldurduk.	
+1	Laptop		3000,0000	10
+2	Mouse		20,0000		20
+3	Keyboard		40		21
+NULL	NULL		NULL		NULL
+
+
+
+Windows Forms App(.NET Framework) formatında "AdoNetDemo" adında bir proje oluşturduk.
+daha sonra sol üstten View > Toolbox açtık ve Data menüsünden "DataGridView" ( ürünlerimizi göstereceğimiz tablo diyebiliriz.) ekledik.
+
+* Oluşturduğumuz projede bir "ProductDal" ( isimlendirme anlamı = Product : Tablomun adı 	   Dal: Data Access Layer(veri erişim katmanı)) adında bir "class açtık."
+
+*** bu class;		( Insert, Update, Delete, Select ) operasyonlarını içerir
+- Veri tabanından veri çekme,
+- Veri tabanına yeni veri gönderme,
+- Veri tabanından veri silme,
+- Veri tabanında güncelleme.
+
+*Oluşturduğumuz projede  "Product" ( Ürün ) adında bir class daha oluşturduk.		-->> class Product olarak açtığımız sınıfı
+									-->> başına "Public" yazarak	"Public class Product" olarak değiştirdik.
+*** bu classta;
+- Tablomuz için kodları bu classta gireriz.
+
+******************** Product classı ******************** 
+public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public decimal UnitPrice { get; set; }		-->> parasal olduğu için "decimal"
+        public int StockAmount { get; set; }
+    }
+
+******************** ProductDal classı ******************** 
+
+class ProductDal
+    {
+        public List<Product> GetAll()
+        {															-->> bağlantı nesnesini oluşturduk..!
+            SqlConnection connection = new SqlConnection(@"server=(localdb)\mssqllocaldb;initial catalog=ETrade;integrated security=true");		-->> " "(tırnak) içerisi hangi veri tabanına bağlanacağımızı gösteren yerdir.
+	if (connection.State == ConnectionState.Closed)										-->> *** başına @ koyarız string olduğunu belirtmek için.
+            {															-->> *** "inital catalog =ETrade" hangi veri tabanına bağlanacağımızı gösterir.
+                connection.Open();			-->> Kapalı ise aç anlamında								-->> *** "integrated security=true" ise veri tabanına Windows Authentication ile bağlan anlamında.
+            }        														-->> Windows authentication = bilgisayara login olduğumuz hesap ile sql i açabiliyorsak buna denir.
+                    SqlCommand command = new SqlCommand("Select * from Products");		-->>bir tablodan veri çekmek veya eklemek için bu kodu kullanırız.
+            	  SqlDataReader reader = command.ExecuteReader();				-->> bu komut ise buradaki kodu çalıştırmaya yarar.
+
+       }  													
+    }	
+yazdıktan sonra soldan Database mize gideriz "ETrade" sağ tık "New Query" gireriz ve açılan pencereye "Select * from Products" ekleyip soldan başlat düğmesine basarız ve aşağı ürün tablomuz gelir. (***Sql veri getirme komudu.***)														
+															
+															
+DataTable dataTable = new DataTable();
+            dataTable.Load(reader);			-->> reader yükledik.
+            reader.Close();			-->> reader ı kapadık.
+            connection.Close();			-->> connection ı kapadık.
+            return dataTable;			-->> datatable ı tekrar döndürdük.
+
+******************** FORM DESİGN ******************** 
+
+tablomuzu tasarladığımız projeye gelip arka boş beyaz kısma iki kere tıklayınca kod kısmı açılır.
+
+ public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ProductDal productDal = new ProductDal();
+            dgwProducts.DataSource = productDal.GetAll();
+        }
+    }
+
+ÇALIŞTIR YAPTIK VE EKRANA TABLOMUZ GELDİ..!
+
+*************** LİSTELERLE ÇALIŞMAK ***************		-->> en temel versiyonları ile yazıldı...!! 	
+
+public List<Product> GetAll()
+        {
+            SqlConnection connection = new SqlConnection(@"server=(localdb)\mssqllocaldb;initial catalog=ETrade;integrated security=true");
+            if (connection.State == ConnectionState.Closed)
+            {
+                connection.Open();							-->> 1- bağlantıyı açıcak bir metot.
+            }
+            
+            SqlCommand command = new SqlCommand("Select * from Products",connection);
+									-->> 2- komutu çalıştırıcak bir metot.
+            SqlDataReader reader = command.ExecuteReader();
+
+            List<Product> products = new List<Product>();
+
+            while (reader.Read())			-->> bir şeyi okuyacak bir metot.
+            {
+                Product product = new Product
+                {
+                    Id = Convert.ToInt32(reader["Id"]),
+                    Name = reader["Name"].ToString(),
+                    StockAmount = Convert.ToInt32(reader["StockAmount"]),			-->> 3- otomatik olarak alanları aktaracak bir metot
+                    UnitPrice = Convert.ToDecimal(reader["UnitPrice"])
+                };
+                products.Add(product);
+            }
+
+
+

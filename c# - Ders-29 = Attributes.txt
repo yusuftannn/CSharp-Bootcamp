@@ -1,0 +1,55 @@
+Attribute neden kullanılır = nesnelere, özelliklere veya metotlara anlam katmak için kullanılır. 
+
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+            Customer customer = new Customer { Id = 1, LastName = "Tan", Age = 20 };
+            CustomerDal customerDal = new CustomerDal();
+            customerDal.Add(customer);
+            Console.ReadLine();			-->> ekrana 	1 , , Tan,20 added! 		yazar.
+        }
+    }
+   [ToTable("Customers")]			-->> attributeler ilgili ekleyeceğimiz yerin üstüne eklenir..
+    class Customer
+    {
+        public int Id { get; set; }
+        [RequiredProperty]				-->> eklendiğinde onu yazmak zorunlu olur (burada FirstName girmek zorunlu)
+        public string FirstName { get; set; }
+        [RequiredProperty]				-->> Attribute denir.
+        public string LastName { get; set; }
+        public int Age { get; set; }
+    }
+
+    class CustomerDal
+    {
+        [Obsolete("Dont use Add, instead use AddNew Method")]		-->> sonraki yazılımcıya mesaj bıraktık. (hazır Attribute dir.)		
+        public void Add(Customer customer)
+        {
+            Console.WriteLine("{0},{1},{2},{3} added!",customer.Id,customer.FirstName,customer.LastName,customer.Age);
+        }
+        public void AddNew(Customer customer)			-->> Add güncelledik. Öncekini silemedik çünkü önceki add metodunu kullanan projeler olabilir.
+        {
+            Console.WriteLine("{0},{1},{2},{3} added!", customer.Id, customer.FirstName, customer.LastName, customer.Age);
+        }
+    }
+
+[AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]	-->> bu Attribute yi yalnızca nesneler üzerinde kullanabilirsin. ( AttributeTargets.Class = yazsaydık yalnızca classların üzerine eklenebilir.)
+class RequiredPropertyAttribute:Attribute				-->> AttributeTargets.All = yazsaydık herkese eklenebilir anlamında.
+    {
+
+    }
+    
+[AttributeUsage(AttributeTargets.Class)]			-->> 1 veya 2 sinde kullanılsın istersekte ( AttributeTargets.Class | AttributeTargets.Field) gibi.. ( | işaretini kullanırız. )
+class ToTableAttribute : Attribute
+    {
+        public string _tableName;
+        public ToTableAttribute(string tableName)
+        {
+            _tableName = tableName;
+        }
+    }
+
+
+-->> AllowMultiple = true (yaparsakta attributeyi alt alta birçok kez kullanabilirmiyiz. true ise kullanılır.

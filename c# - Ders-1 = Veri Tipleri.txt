@@ -1,0 +1,32 @@
+C#(cSharp) NOT!!
+
+ders-1
+Console.WriteLine("hello world");
+Console.ReadLine();
+
+ders-2 // VERİ TİPLERİ //
+
+int number1 = 2147483647 (int'in sınırıdır. bu sayının üstü longa girer.)
+
+Console.WriteLine("Number1 is {0}",number1);
+Console.ReadLine();
+
+long = hepsini kapsar (long'un sınır ise 92233720368547758)
+short = 32767 sınırında
+byte = 0 ile 255 arasında sınırı
+bool = true ya da false olur (şartlarda çok kullanılır ör:50 yukarısıysa true yaz)
+char = ascii tablosundaki karşılığı 
+char ör: Console.WriteLine("character is {0}",(int)character) karşılığını verir
+double = ondalıklı sayılar için kullanılır. virgüllü sayılar sadece buradan!
+double = virgülden sonra 15-16 tane sayı tutabilir.
+decimal = virgülden sonra 28-29 tane sayı tutabilir.
+decimal number1 = 10.4m; şeklinde yazılır
+
+enum = her yerdeki değişim - yazarkende friday yazabiliyor.
+Console.WriteLine(Days.Friday);
+enum Days
+Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday
+
+var number7 = 10
+number7 = 'A' // ascii tablosundaki değeri atar. (65)
+number7 = "A" string değeri int'e atılamaz (bu yapılamaz..!)

@@ -1,0 +1,11 @@
+ ICustomerDal[] customerDals = new ICustomerDal[2]
+            {
+                new SqlServerCustomerDal(),				-->> veri tabanlarını "add" leme.
+                new OracleServerCustomerDal()				-->> ikisini de kolay yoldan "added" yaptık.
+            };								-->> Sql Added!	, Oracle Added!	ekrana yazar.
+            foreach (var customerDal in customerDals)
+            {
+                customerDal.Add();
+            }
+
+            Console.ReadLine();

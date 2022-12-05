@@ -1,0 +1,62 @@
+class Program
+    {
+        static void Main(string[] args)
+        {
+            CustomerManager customerManager = new CustomerManager(new LoggerFactory());		-->>new CustomerManager(new LoggerFactory());	  "new yerine hangi fabrikayı yazarsak o gelir.."
+            customerManager.Save();
+
+            Console.ReadLine();
+        }
+    }
+    public class LoggerFactory:ILoggerFactory			--> Fabrika 1
+    {
+        public ILogger CreateLogger()
+        {
+            // fabrikanın hangi logu üreteceğinin kararı verilir.
+            return new YtLogger();					-->> 1. fabrikanın log lamak istediği
+        }
+    }
+    public class LoggerFactory2 : ILoggerFactory			-->> Fabrika 2
+    {
+        public ILogger CreateLogger()
+        {
+            // fabrikanın hangi logu üreteceğinin kararı verilir.
+            return new AspLogger();				-->> 2. fabrikanın log lamak istediği
+        }
+    }
+    public interface ILoggerFactory
+    {
+        ILogger CreateLogger();
+    }
+    public interface ILogger
+    {
+        void Log();
+    }
+    public class YtLogger : ILogger
+    {
+        public void Log()
+        {
+            Console.WriteLine("YtLogger tarafından Loglandı..!");
+        }
+    }
+    public class AspLogger : ILogger
+    {
+        public void Log()
+        {
+            Console.WriteLine("AspLogger tarafından Loglandı..!");
+        }
+    }
+    public class CustomerManager
+    {
+        private ILoggerFactory _loggerFactory;
+        public CustomerManager(ILoggerFactory loggerFactory)
+        {
+            _loggerFactory = loggerFactory;
+        }
+        public void Save()
+        {
+            Console.WriteLine("Saved!!");
+            ILogger logger = _loggerFactory.CreateLogger();
+            logger.Log();
+        }
+    }

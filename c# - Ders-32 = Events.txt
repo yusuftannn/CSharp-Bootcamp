@@ -1,0 +1,75 @@
+- event adında proje oluşturduk
+- Product adında sınıf oluşturduk		-->> üründe yapılacak çalışmaların kodları için.
+
+
+------ Product classı ------
+
+public delegate void StockControl();
+    public class Product
+    {
+        private int _stock;
+
+        public Product(int stock)
+        {
+            _stock = stock;
+        }
+
+        public event StockControl StockControlEvent();
+        public string ProductName{ get; set; }
+        public int Stock 
+        {
+            get { return _stock; }
+            set
+            {
+                _stock = value;		-->> value : kullanıcının girdiği değer anlamında
+                if (value <= 15)		-->> 15ten küçük eşit ise ekrana yazdır.
+                {
+                    StockControlEvent();
+                }
+
+            }
+        }
+
+        public void Sell(int amount)
+        {
+            	  Stock -= amount;						-->> stocktan satış yaptığımızda stoktan düş anlamında..
+                    Console.WriteLine("{1} Stock Amount : {0}", Stock,ProductName);	-->> düşülen stoğu yaz.	(baştaki {1} ve sondaki ProductName ile ürünlerin isimleri de başına gelir ve ekrana
+        }									-->> Hard Disk Stock Amount : ..... yazar.!
+    }
+
+----------------- Program class ----------------- 
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Product harddisk = new Product(50);			-->> harddisk stoğumuzda 50 olduğunu belirttik.
+            harddisk.ProductName = "Hard Disk";
+            harddisk.StockControlEvent += Harddisk_StockControlEvent;	-->> bu kod ile harddiski evente abone ettik (stok bittiğinde uyarı mesajı atar)
+
+
+            Product phone = new Product(70);			-->> phone stoğumuzda 70 olduğunu belirttik.
+            phone.ProductName = "Samsung";
+            phone.StockControlEvent += Phone_StockControlEvent;	-->> bu kod ile phone u evente abone ettik (stok bittiğinde uyarı mesajı atar) 
+
+           
+            for (int i = 0; i < 10; i++)			-->> bu for döngüsü düşür anlamında..
+            {
+                harddisk.Sell(10);				-->> harddisk ten 10 tane sat.
+                phone.Sell(10);				-->> phone dan 10 tane sat
+                Console.ReadLine();
+            }
+            Console.ReadLine();
+        }
+        
+        private static void Harddisk_StockControlEvent()	-->> harddisk bittiğinde ne yapıyım anlamında. ( ekrana bu mesajı yazar.)
+        {
+            Console.WriteLine("Harddisk stoğu bitti!!");
+        }
+
+        private static void Phone_StockControlEvent()		-->> phone bittiğinde ne yapıyım anlamında. (ekrana bu mesajı yazar.)
+        {
+            Console.WriteLine("Phone stoğu bitti!!");		
+        }
+    }
+ }

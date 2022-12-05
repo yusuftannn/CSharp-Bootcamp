@@ -1,0 +1,54 @@
+******************** INTERFACES ********************
+-->> IPerson person = new IPerson();	-->> *** interface lerin newi oluşturalamaz.. ( bu kod yanlıştır.) 
+-->> IPerson person = new Customer();	-->> bu kod doğrudur çalışır.
+
+PersonManager manager = new PersonManager();
+            Customer customer = new Customer
+            {
+                Id = 1,				-->> yalnızca virgül unutma!!!
+                FirstName = "Yusuf",
+                LastName = "Tan",
+                Address = "Kocaeli"
+            };		-->> noktalı virgül unutma!!!
+
+            Student student = new Student
+            {
+                Id = 1,				-->> yalnızca virgül unutma!!!
+                FirstName = "Şafak",
+                LastName = "Tan",
+                Departmant = "Computer"
+            };
+            manager.Add(customer);		-->> customer ın firstname ini yazar.
+            manager.Add(student);			-->> student ın firstname ini yazar.
+
+            Console.ReadLine();
+
+        }
+    }
+    interface IPerson
+    {
+        int Id { get; set; }					-->> int olur !!!
+        string FirstName { get; set; }			-->> string olur !!!
+        string LastName { get; set; }			-->> string olur
+    }							-->> başına "public" yazılamaz..!
+    class Customer : IPerson
+    {
+        public int Id { get; set; }			-->> başına "public" yazılmalı..!
+        public string FirstName { get; set; }		-->> public anlamı: dışarıdan ulaşılabilinir. yani static tarafta kullanılır.
+        public string LastName { get; set; }
+        public string Address { get; set; }
+    }
+    class Student : IPerson				-->> sonuna ":IPerson" ekleyerek classı interface IPerson a çevirmiş oluruz.
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+       public string LastName { get; set; }
+       public string Departmant { get; set; }
+    }
+    class PersonManager
+    {
+        public void Add(IPerson person)			-->> IPerson person olarak yazarsak class eklemesi yaptığımızda yalnızca özellik ekleyip yazdırmak mümkün
+        {
+            Console.WriteLine(person.FirstName);	-->>> person.FirstName yaptığımızda artık class farketmeksizin istediğimizi yazar. 
+        }						-->> yalnızca student.FirstName olsaydı sadece studentın özelliklerini yazmış olurdu.
+    }

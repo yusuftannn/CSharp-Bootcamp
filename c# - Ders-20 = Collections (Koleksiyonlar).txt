@@ -1,0 +1,133 @@
+string[] cities = new string[2] { "Ankara", "İstanbul" };
+            cities = new string[3];
+            cities[2] = "Adana";
+            Console.WriteLine(cities[0]);				-->> ekranda hiç bir şey yazmaz boş kalır.
+            Console.ReadLine();
+
+
+******************** ARRAYLİST ******************** 
+1.yazım-- ArrayList cities = new ArrayList();		-->> arraylistlerde bir sınır koyulmaz..!
+            cities.Add("Ankara");
+            cities.Add("İstanbul");			-->> altına yüzlerce ekleme yapılabilir.
+            cities.Add("Kocaeli");
+            cities.Add("İzmir");
+
+2.yazım-- ArrayList cities = new ArrayList();		-->> tip güvenli çalışma yok ise arraylist tercih edilebilir.
+{
+        "Ankara",
+        "İstanbul",
+        "Kocaeli",
+        "İzmir"
+};
+
+            foreach (var city in cities)
+            {
+                Console.WriteLine(city);			-->> ekrana tüm cityleri yazar.
+            }
+
+            Console.ReadLine();
+
+******************** TİP GÜVENLİ KOLEKSİYONLAR ******************** 
+
+List<string> cities = new List<string>();		-->> Yalnızca string elemanlar atanabilir.
+            cities.Add("Ankara");
+            cities.Add("İstanbul");
+
+	    Console.WriteLine(cities.Contains("Ankara"));		-->> cities lerin içinde Ankara değeri var ise "True" yaz. 
+									-->> "contains" kodu arama yaparken kullanılır.	( True veya False  yazar.)
+
+            foreach (var city in cities)
+            {
+                Console.WriteLine(city);
+            }
+
+1.yazım	    List<Customer> customers = new List<Customer>();
+            customers.Add(new Customer { Id = 1, FirstName = "Yusuf" });
+            customers.Add(new Customer { Id = 2, FirstName = "Şafak" });
+
+***2.yazım  List<Customer> customers = new List<Customer>
+            {
+                new Customer { Id = 1, FirstName = "Yusuf" },
+                new Customer { Id = 2, FirstName = "Şafak" }
+            };
+
+	    
+            var customer2 = new Customer
+            {
+                Id = 3,
+                FirstName = "Salih"
+            };
+            customers.Add(customer2);
+            customers.AddRange(new Customer[2] 			-->> array bazlı liste ver ben onu customers a atıyım.
+            { 
+                new Customer{Id=4,FirstName="Ali"},
+                new Customer{Id=5,FirstName="Ece"}
+            });
+	    
+            Console.WriteLine(customers.Contains(new Customer { Id = 1, FirstName = "Yusuf" }));	-->> ekranda false yazar.(yanlış bir yazım)
+
+            Console.WriteLine(customers.Contains(customer2));				-->> ekrana true yazar.
+
+	    customers.Clear();
+
+            var index = customers.IndexOf(customer2);			-->> kaçıncı sırada olduğunu yazdırır.
+            Console.WriteLine("Index : {0}", index);			-->> ekrana "Index : 2" yazar.
+	    
+            customers.Add(customer2);					-->> customer2 yi sona almış olduk.
+            var index2 = customers.LastIndexOf(customer2);		-->> aramaya sondan başlar.
+            Console.WriteLine("Index : {0}", index2);			-->> ekrana "Index : 5" yazar.
+
+            customers.Insert(0, customer2);				-->> listenin kaçıncı sırasına ne eklensin (0 ıncı sıraya yani en başa customer2 yi ekle.)
+	    customers.Remove(customer2);				-->> bulduğu ilk değeri siler.
+            customers.RemoveAll(c => c.FirstName == "Salih");		-->> ismi Salih olanları siler.
+
+
+            foreach (var customer in customers)
+            {
+                Console.WriteLine(customer.Id);			-->> ekrana "1 Yusuf 2 Şafak 3 Salih 4 Ali 5 Ece" yazar.
+                Console.WriteLine(customer.FirstName);
+            }
+	    var count = customers.Count;			-->> ekrana "Count : 0" yazdı.
+            Console.WriteLine("Count : {0}",count);
+            Console.ReadLine();
+
+
+
+class Customer
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+    }
+
+******************** DİCTİONARY ******************** 			-->> kelime anlamı sözlük.
+
+ Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            dictionary.Add("book", "kitap");				-->> 2 string değer yan yana yazılır.
+            dictionary.Add("table", "masa");
+            dictionary.Add("computer", "bilgisayar");
+
+            //Console.WriteLine(dictionary["table"])			-->> ekrana "masa" yazar.
+
+            foreach (var item in dictionary)
+            {
+                Console.WriteLine(item);				-->> ekrana tüm hepsini yazar.
+            	Console.WriteLine(item.Key);				-->> ekrana ilk değerleri atar ("book,table,computer") gibi.
+	   	Console.WriteLine(item.Value);				-->> ekrana 2. değerleri atar ("kitap,masa,bilgisayar") gibi.
+	    }
+
+            Console.WriteLine(dictionary.ContainsKey("glass"));		-->> listede glass var mı ( ekrana false yazar.)
+            Console.WriteLine(dictionary.ContainsKey("computer")); 	-->> listede computer var mı ( ekrana true yazar.)
+
+            Console.ReadLine();
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+DERS - 3 
+ŞART BLOKLARI 		&& = ve işareti   || = veya
+var number = 10;
+     if () 	// parantez içi şart bloğuna denk gelir.
+		// parantez içinde = atama olduğu için == kullanılır
+     {
+
+     }
+      if (number==10)	// okunuşu= eğer sayı 10 ise
+      {
+		Console.WriteLine("Number is 10");
+      }
+	else		// eğer 10 değil ise
+ 	{
+              	Console.WriteLine("Number is not 10");  
+  	}
+
+2. yazış yolu 
+
+Console.WriteLine(number == 10 ? "Number is 10" : "Number is not 10");
+
+--
+else if (number == 20)	// 20 ise bunu yaz
+{
+	
+}
+--
+>>> switch <<<
+ switch (number)
+            {
+                case 10:
+                    Console.WriteLine("Number is 10");
+                    break;
+                case 20:
+                    Console.WriteLine("Number is 20");
+                    break;
+                default:
+                    Console.WriteLine("Number is not 10 or 20");
+                    break;
+
+            }
+
+
+

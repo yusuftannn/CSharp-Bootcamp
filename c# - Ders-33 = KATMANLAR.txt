@@ -1,0 +1,22 @@
+***** VERi ERİŞİM KATMANI ***** ( DataAccess katmanı )
+-İNSERT
+-SELECT
+-UPDATE
+-DELETE
+
+***** İş KATMANI *****  ( Business katmanı )
+İF
+ELSE LER		-->> ŞÖYLEYSE ŞÖYLE YAP BÖYLEYSE BÖYLE (ŞARTLAR)
+
+
+***** ARAYÜZ KATMANI ***** 
+BUTTON
+TEXTBOX			-->> KODLARI ŞU KUTUCUK ŞÖYLE OLUCAK BÖYLE OLUCAK
+GRİDVİEW
+
+YAZDIĞIMIZ YER..
+
+
+
+yardımcı katmanlarda vardır
+örneğin: Entity			-->> veri tabanında ki nesnelerimizi içerdiğimiz 

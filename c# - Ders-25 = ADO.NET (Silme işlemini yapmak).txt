@@ -1,0 +1,25 @@
+---- ProductDal classı içinden -----
+
+       public void Delete(int id)
+        {
+            ConnectionControl();
+            SqlCommand command = new SqlCommand(
+                "Delete from Products where Id=@id", _connection);
+            command.Parameters.AddWithValue("@id",id);
+            command.ExecuteNonQuery();
+
+            _connection.Close();
+
+        }
+
+- Form1 design kısmından gridin üzerine "button" ekledik ve adını Remove ve button adını ise "btnRemove" yaptık.
+-çift tıkladık ve kod kısmına geçti..
+
+
+private void btnRemove_Click(object sender, EventArgs e)
+        {
+            int id = Convert.ToInt32(dgwProducts.CurrentRow.Cells[0].Value);		-->> seçili olan id buldu..
+            _productDal.Delete(id);							-->> sonra id gönderdik.. sildi
+            LoadProducts();							-->> ürünleri güncelledi						
+            MessageBox.Show("Deleted!");						-->> ve mesajı iletti.
+        }

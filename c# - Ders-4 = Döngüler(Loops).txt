@@ -1,0 +1,67 @@
+// FOR //
+
+for (int i = 1; i <= 100; i++)		-->> 1 den 100e kadar alt alta sayıları yazar.
+{					-->> for değeri 3e bölünmüş ve noktalı virgüllerle ayrılmıştır.
+    Console.WriteLine(i);			-->> 1.değer    int  i = 1;      başlangıç değeri				1.değer (başlangıç)
+}					-->> 2.değer    i <= 100;     şartımız *yani i 100 den küçük eşit olduğu sürece.	2.değer (şart)
+    Console.ReadLine();			-->> 3.değer    i++               bi sonraki değerde ne yapıyım *i yi 1 arttır.		3.değer (artış)
+
+
+
+for (int j = 1; j <= 100; j+=2)		-->> 1 den 100e kadar olan tek sayılar yazmak istersek.
+{				-->> for daki 3 değeri   j+=2	veya	j=j+2
+    Console.WriteLine(j);
+}
+
+
+
+for (int i = 2; i <= 100; i=i+2)		-->> 1 den 100e kadar olan çift sayıları yazdırmak için 1.değeri 2 veya 0 dan başlatmalı.
+{
+    Console.WriteLine(i);
+}
+
+// 100 den geri sayıları yazdırmak için //
+
+for (int i = 100; i >=0; i=i-2)		-->> veya i-=2
+{
+	Console.WriteLine(i);
+}
+
+// WHİLE // 
+
+int number = 100;
+while (number>=0)
+{
+Console.WriteLine(number);
+number--;						-->> 100 den 0 a 1er 1er azalttı ve en sona "now number is -1" yazdı.
+}
+Console.WriteLine("Now number is {0}", number);
+Console.ReadLine();
+
+// DO WHİLE //
+
+int number = 10;
+do					-->> şart sağlanmıyor ama en sondaki sayıyı yine de yazıp kapatır.
+{
+	Console.WriteLine(number);
+	number--;
+} while (number>=11);
+Console.ReadLine();
+
+// FOREACH //		-->> dolaşılabilir nesnelere karşılık gelir.
+
+string[] students = new string[3] { "Engin", "Derin", "Salih" };
+foreach (var student in students)
+{
+	Console.WriteLine(student);
+}
+Console.ReadLine();
+
+
+
+
+
+
+
+
+

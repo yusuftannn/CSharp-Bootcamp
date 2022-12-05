@@ -1,0 +1,16 @@
+internal class Course						-->> class ın defaultu internal dır.
+    {							-->> internal = bağlı bulunduğu proje içinde referans ihtiyacı olmadan kullanılabilir.
+        public string Name { get; set; }				-->> internal = içinde olduğu projede istediğimiz noktada çağırılabilinir.
+    }
+
+
+
+internal class Course					-->> bu classın başına yalnızca "internal veya public" yazılabilir.
+    {
+        public string Name { get; set; }
+
+        private class Nested				-->> classlara ne zaman "private" veya "protected" yazılabilir (cevap: iç içe classlarda).
+        {						-->> class ın içine bir class daha yazarsak başına "private" yazılabilir.
+
+        }
+    }

@@ -1,0 +1,9 @@
+********************* PUBLİC ********************* 
+
+-->> Public = başka projedeki sınıfı diğer bir projede kullanmak için tanımlanır.
+
+-->> classın başına "public" eklemeli.
+
+-->> kullanıcağımız sınıfta Reference > Project > Solution adımlarını yapıp kullanmak istediğimiz sınıfın projesini seçmeli.!
+
+-->> en yukarı kütüphane olarak "using seçmek istediğimiz classın proje adı;" yazmalı.

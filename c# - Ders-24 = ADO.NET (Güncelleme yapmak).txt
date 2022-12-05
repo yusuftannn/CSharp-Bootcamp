@@ -1,0 +1,42 @@
+-ProductDal classın içine ekleme yaptık.. (yaptığımız yeni kayıt ekleme koduna benzerdir.)--(farkı ise "" içini değiştirdik birde id ekledik)
+
+public void Update(Product product)
+        {
+            ConnectionControl();
+            SqlCommand command = new SqlCommand(
+                "Update Products set Name=@name, UnitPrice=@unitPrice, StockAmount=@stockAmount where Id=@id", _connection);
+            command.Parameters.AddWithValue("@name", product.Name);
+            command.Parameters.AddWithValue("@unitPrice", product.UnitPrice);
+            command.Parameters.AddWithValue("@stockAmount", product.StockAmount);
+            command.Parameters.AddWithValue("@id", product.Id);
+            command.ExecuteNonQuery();
+
+            _connection.Close();
+
+        }
+
+- Form1 üzerinde yeni kayıt ekleme tasarımımızı kopyalayıp yanına ekledik ve ismini "Update" olarak değiştirdik.
+
+
+*****FORM1 *********
+private void dgwProducts_CellClick(object sender, DataGridViewCellEventArgs e)		-->> ürünlerimizin üzerine bastığımızda otomatik olarak update kısmına gelir.
+        {
+            tbxNameUpdate.Text = dgwProducts.CurrentRow.Cells[1].Value.ToString();		-->> KOD OKUNUŞU == tbxname in texti dgwproductsın .currentrow (seçili olan satır) ının .cells ( hücrelerinden) [ ] kaçıncı (name kaçta ise) 1inci onun valuesi stringe çevir.
+            tbxUnitPriceUpdate.Text = dgwProducts.CurrentRow.Cells[2].Value.ToString();
+            tbxStockAmountUpdate.Text = dgwProducts.CurrentRow.Cells[3].Value.ToString();
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)				-->> Tasarımımızdan eklediğimiz "Update" butonuna çift tıklarız ve kod kısmı açılır.
+        {
+            Product product = new Product
+            {
+                Id = Convert.ToInt32(dgwProducts.CurrentRow.Cells[0].Value),
+                Name = tbxNameUpdate.Text,
+                UnitPrice = Convert.ToDecimal(tbxUnitPriceUpdate.Text),
+                StockAmount = Convert.ToInt32(tbxStockAmountUpdate.Text)
+            };
+           _productDal.Update(product);
+            LoadProducts();
+            MessageBox.Show("Updated!");
+        }

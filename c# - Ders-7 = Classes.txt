@@ -1,0 +1,81 @@
+static void Main(string[] args)
+        {
+            CustomerManager customerManager = new CustomerManager();		-->> ikinci kelime "c" ufak başlar "M" büyük olabilir
+            customerManager.Add();
+            customerManager.Update();
+
+            ProductManager productManager = new ProductManager();
+            productManager.Add();
+            productManager.Update();
+            
+            
+            Console.ReadLine();
+        }
+    }
+    class CustomerManager			-->> Customer = müşteri
+    {
+        public void Add()
+        {
+            Console.WriteLine("Customer Added!");
+        }
+        public void Update()
+        {
+            Console.WriteLine("Customer Updated!");
+        }
+    }
+    class ProductManager			-->> Product = ürün
+    {
+        public void Add()
+        {
+            Console.WriteLine("Product Added!");
+        }
+        public void Update()
+        {
+            Console.WriteLine("Product Updated!");
+        }
+    }
+
+
+
+
+    class Customer				-->> müşteri özelliklerini tutmak için kullanılır.
+    {
+        public int Id { get; set; }
+        public string FirstName { get; set; }			-->> public string FirstName; şeklinde de yazılabilir
+        public string LastName { get; set; }
+        public string City { get; set; }
+    }
+
+1.Yazılım >>  Customer customer = new Customer
+              {
+                Id = 1,
+                City = "Kocaeli",
+                FirstName = "Yusuf",
+                LastName = "Tan"
+              };
+
+2.Yazılım >> Customer customer2 = new Customer
+             {
+                Id = 2,
+                City = "İstanbul",
+                FirstName = "Şafak",
+                LastName = "Tan",
+             };
+Console.WriteLine(customer.City);
+Console.ReadLine();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

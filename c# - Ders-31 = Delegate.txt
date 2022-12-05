@@ -1,0 +1,121 @@
+-- Elçi gibi düşünebiliriz. ( mesaj getir götür yapan)
+
+class Program
+    {
+        public delegate void MyDelegate();
+        public delegate void MyDelegate2(string text);			-->> parametreli olursa nasıl olur..
+        public delegate int MyDelegate3(int number1, int number2);	-->> int olursa nasıl olur..
+
+
+        static void Main(string[] args)
+        {
+            CustomerManager customerManager = new CustomerManager();
+            //customerManager.SendMessage();			-->> ikisini yorum satır yapıp ekran boş gözükür fakat .. ( aşağda)
+            //customerManager.ShowAlert();
+
+            MyDelegate myDelegate = customerManager.SendMessage;		-->> customerManager in sendmessage ına delege edilmiş durumda..!
+            myDelegate += customerManager.ShowAlert;			-->> myDelegate e showalert ( uyarı mesajımızı) ekledik. (ekranda ikiside yazdı..)
+            myDelegate -= customerManager.ShowAlert;			-->> -= yaparakta showalerti geri almış olduk  (ekranda gözükmez)
+
+            MyDelegate2 myDelegate2 = customerManager.SendMessage2;
+            myDelegate2 += customerManager.ShowAlert2;
+
+            Matematik matematik = new Matematik();				-->> newledik..
+            MyDelegate3 myDelegate3 = matematik.Topla;			-->> topla yı atadık
+            myDelegate3 += matematik.Çarp;					-->> çarpı ekledik
+            var sonuc = myDelegate3(2, 3);					-->> sayı girmemiz gerekti..
+            Console.WriteLine(sonuc);					-->> ekrana en son atananı yazar (en son çarp eklediğimiz için ekrana iki sayıyı çarptı ve ekrana 6 yazdı)
+
+           myDelegate2("hello");			-->> ikisine de aynı message göndemiş olduk ( parametre atandığı zaman böyle olmak zorunda)
+
+            myDelegate();		-->> bu kodu çağırırsak ekranda "Hello" gözükür..
+
+            Console.ReadLine();
+        }
+    }
+    public class CustomerManager
+    {
+        public void SendMessage()		-->>mesaj gönder
+        {
+            Console.WriteLine("Hello");
+        }
+        public void ShowAlert()			-->> uyarı mesajı
+        {
+            Console.WriteLine("Be careful!");
+        }
+        public void SendMessage2(string message)
+        {
+            Console.WriteLine(message);
+        }
+        public void ShowAlert2(string alert)
+        {
+            Console.WriteLine(alert);
+        }
+
+    public class Matematik
+    {
+        public int Topla(int sayi1, int sayi2)
+        {
+            return sayi1 + sayi2;
+        }
+        public int Çarp(int sayi1, int sayi2)
+        {
+            return sayi1 * sayi2;
+        }
+    }
+ }
+
+----------------------- ACTİON ----------------------- 
+
+merkezi bir exception yönetim ortamı oluşturduk. her seferinde try catch yazmak istemedik.. ve daha profesional bir kod bloğu yazmış olduk.
+kod bloğunu action a gönderelim bi kere çağıralım ve..
+try
+{
+action.Invoke();		-->> yazarak çağıralım
+}
+catch
+{
+
+}
+
+----------------------- FUNC ----------------------- 
+
+class Program
+    {
+        static void Main(string[] args)
+        {
+
+            Func<int, int, int> add = Topla;
+
+            Console.WriteLine(add(3, 5));			-->> ekranda 8 yazar.
+
+
+            Func<int> getRandomNumber = delegate ()	-->> random bi sayı atar.
+            {
+                Random random = new Random();
+                return random.Next(1, 100);			-->> 1 ile 100 arasında random bir sayı yazar..
+            };
+
+            Func<int> getRandomNumber2 = () => new Random().Next(1, 100);		-->> action a benzer.. ( getrandomnumber2 eşittir parametresiz metoda delegasyon yap)..
+
+
+            Console.WriteLine(getRandomNumber());		-->> ekrana yazdırdık..
+            Thread.Sleep(1000);				-->> bu kod olmayınca 2 kodda aynı sayıyı atıyor ( ilkini yaz 1000ms bekle ikinciyi yaz)
+            Console.WriteLine(getRandomNumber2());
+
+            //Console.WriteLine(Topla(2, 3));
+
+            Console.ReadLine();
+        }
+        static int Topla(int x, int y)
+        {
+            return x + y;
+        }
+    }
+
+
+
+
+
+
+

@@ -1,0 +1,91 @@
+try			-->> hata kontrol için kullanılır..!				-->> try yazıp taba 2 kere bas
+{
+     string[] students = new string[3] { "Yusuf", "Şafak", "Salih" };			-->> hata kontrol için kodu yaz
+     students[3] = "Ahmet";
+}
+catch (Exception exception)
+{
+
+    Console.WriteLine("EXCEPTİONN!!!");				-->> hata varsa bunu yazar.
+    Console.WriteLine(exception.Message);			-->> hata mesajını ekrana yazar fakat kullanıcıya göstermek tehlikelidir bunun için bunu log larız.
+
+}
+   
+
+Console.ReadLine();
+
+try
+            {
+                string[] students = new string[3] { "Yusuf", "Şafak", "Salih" };
+                students[3] = "Ahmet";
+            }
+            catch (IndexOutOfRangeException exception)			-->> koda bak eğer IndexOutRange... hatası var ise bunu yap
+            {
+
+                Console.WriteLine(exception.Message);
+            }
+            catch (Exception exception)
+            {
+
+                Console.WriteLine("EXCEPTİONN!!!");
+                Console.WriteLine(exception.Message);
+            }
+   
+
+            Console.ReadLine();
+
+************************************************************
+1.	    try
+            {
+                Find();						-->> Backend den gelen hatayı kontrol altına alır.
+            }							-->> Kullanıcıya gösterilcek ekran doğru yönlendirmesi için
+            catch (RecordNotFoundException exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+
+2.	    HandleException(() =>				-->> üstteki try catch kodunun aynı halidir kısa şekli olarak düşünebiliriz.
+            {
+                Find();									
+            });
+
+            Console.ReadLine();
+
+private static void HandleException(Action action)			-->> merkezi bir action dur
+        {
+            try
+            {
+                action.Invoke();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception.Message);
+            }
+        }
+
+private static void Find()
+{
+	List<string> students = new List<string>			-->> metot haline çeviririz
+{									*** Backend tarafında bu kodlar yazılır yukarıdaki kodlar ise ön tarafta yazılır.
+       "Yusuf",
+       "Şafak",
+       "Salih",
+       "Ayşe"
+};
+if (!students.Contains("Yusuf"))		
+{
+      throw new RecordNotFoundException();			-->> eğer yanlış ise hata ver
+}
+else
+{
+      Console.WriteLine("Record Found");			-->> doğru ise ekrana "Record Found" yaz.
+}
+}
+ Console.ReadLine();
+
+
+/// diğer bir sınıfta ise ///
+public RecordNotFoundException(string message):base(message)			-->> ctor yazıp iki kere tab yaptıktan sonra (construcktor denir.)
+        {									-->> base in construcktor una parametre gönderme..!
+	
+        }

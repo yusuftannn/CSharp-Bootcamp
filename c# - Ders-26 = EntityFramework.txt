@@ -1,0 +1,136 @@
+ - bu framework Adonete göre daha kullanışlı.. **şimdi Adonet ile yaptığımız projeyi ve proje üzerinde yaptığımız ürün ekleme, ürün silme, ürün güncelleme metotlarını birde 
+Entity üzerinden yapalım..
+- AdoNet te kullandığımız Product kodlarını ve Form1[Design] da yaptığımız tasarımı kopyaladık.
+
+- Oluşturduğumuz EntityFramework adındaki proje üzerinde sağ tık "Manage NuGet Packages..." tıklarız. açılan penceden Browse üzerine gelip EntityFramework ü Install basarak yükleriz..!
+
+- Daha sonra "ETradeContext" adında bir class oluşturduk.
+
+*********** ETradeContext classı **********
+
+public class ETradeContext:DbContext
+    {
+        public DbSet<Product> Products { get; set; }		-->> Entity product ım var onu "Products" ismiyle yani tablo ismi gibi kullanıcam ( Table da products diye birşey arar.. dbo.Products adında vardır.)
+    }
+
+->-> bu classı yaptıktan  sonra form1[Design] içinden boş bir kısma çift tıklayarak form1 kod kısmını açarız.
+
+private void Form1_Load(object sender, EventArgs e)
+        {
+            using (ETradeContext context = new ETradeContext())		-->> burada using kullanmanın amacı "nesneyi zorla bellekten atar" bu sayede çok yer kaplamasını önler.
+            {
+	dgwProducts.DataSource = context.Products.ToList();	-->> EntityFramework teki tabloya erişim kodu ( tek cümle diyebiliriz yani Entityframework sayesinde baya kısa bir kod yazmış olduk..) 
+            }
+        }
+
+- EntityFramework adındaki projemizin "App.config" içine girip altındakini yazarız..
+<connectionStrings>
+<add name="ETradeContext" connectionString=
+"server=(localdb)\mssqllocaldb;initial catalog=ETrade;integrated security=true"
+ providerName="System.Data.SqlClient"/>
+
+
+***************** EKLEME, SİLME, GÜNCELLEME *****************	// ProductDal classı //
+- ProductDal adıyla bir class açtık
+ 
+ public List<Product> GetAll()
+        {
+            using (ETradeContext context = new ETradeContext())		-->> Form1 de yazdığımız Form1_Load ın using kodunu kestik ve bu classa return lu geçirdik..
+            {
+                return context.Products.ToList();				-->> GetAll u çalıştırdığım zaman veri tabanından productsı (ürünleri) çekecek ve listeye çevirecek.. ( kod okunuşu )
+            }
+        }
+--------------- Add ----------- Ekleme işlemi ------------------------
+ public void Add(Product product)
+        {
+            using (ETradeContext context = new ETradeContext())
+            {
+                context.Products.Add(product);				-->> gönderilen ürünü ekle..!
+                context.SaveChanges();				-->> yaptığımız işlemleri veri tabanına yaz diyoruz.
+            }
+        }
+
+-*- Daha sonra Form1 e gidiyoruz ve Form1_Load kod kısmının üstüne
+
+ProductDal _productDal = new ProductDal();		-->> ProductDal dan ürünleri getirdik.  ( ilk işlem )
+
+ProductDal _productDal = new ProductDal();
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            dgwProducts.DataSource = _productDal.GetAll(); 	-->> ikinci işlem olarak bunu yaptık ve kodun son hali..
+        }
+
+-*- Daha sonra Form1[Design] a gidip "Add" butonuna çift tıklayıp add kod kısmını açıyoruz...
+
+private void btnAdd_Click(object sender, EventArgs e)
+        {
+            _productDal.Add(new Product
+            {
+                Name = tbxName.Text,
+                UnitPrice = Convert.ToDecimal(tbxUnitPrice.Text),
+                StockAmount = Convert.ToInt32(tbxStockAmount.Text)
+            });
+            LoadProducts();				-->> Form1_Load içine yazdığımız dgwProducts... kodunu methot haline çevirip bu ismi veririz ve buraya yazarız ( ekleme yaptığımızda otomatik gözükür )
+            MessageBox.Show("Added!");			-->> Eklendiğini bildiren mesaj..
+        }
+
+--------------- Update----------- Güncelleme işlemi ------------------------
+public void Update(Product product)
+        {
+            using (ETradeContext context = new ETradeContext())
+            {	
+                var entity = context.Entry(product);			-->> contexte abone ol kim için product için.. ( gönderdiğimiz productı veri tabanındakiyle eşleştiriyo) 
+                entity.State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+-*-  Daha sonrfa Form1[Design] üzerindeki tablo kısmının özelliklerine girip eventan CellClicki buluruz ve boşluğa çift tıklarız daha sonra kodu oluşturur ve koda yönlendirir
+Form1 içinde;
+private void dgwProducts_CellClick(object sender, DataGridViewCellEventArgs e)		-->> böyle bir kod oluşur bu kodun amacı;
+        {									-->> ekrana gelen ürünlerin herhangi birine bastığımızda otomatik Update kısmına gelmesini sağlamak..
+            tbxNameUpdate.Text = dgwProducts.CurrentRow.Cells[1].Value.ToString();
+            tbxUnitPriceUpdate.Text = dgwProducts.CurrentRow.Cells[2].Value.ToString();
+            tbxStockAmountUpdate.Text = dgwProducts.CurrentRow.Cells[3].Value.ToString();
+        }
+
+- daha sonra Form1[Design] içinde "Update" butonuna çift tıklayıp kod kısmına geçeriz
+
+private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            _productDal.Update(new Product()
+            {
+                Id = Convert.ToInt32(dgwProducts.CurrentRow.Cells[0].Value),
+                Name = tbxNameUpdate.Text,
+                UnitPrice = Convert.ToDecimal(tbxUnitPriceUpdate.Text),
+                StockAmount = Convert.ToInt32(tbxStockAmountUpdate.Text)
+            });
+            LoadProducts();
+            MessageBox.Show("Updated!");
+
+--------------- Delete----------- Silme işlemi ------------------------
+- Form1[Design] içinden "Remove" butonumuza çift tıklayıp koda gittik
+
+private void btnRemove_Click(object sender, EventArgs e)
+        {
+            _productDal.Delete(new Product					-->> EntityFramework te nesneler üzerinden çalışılır. ( Ado Nette ise Id yazıyorduk.)
+            {
+               Id = Convert.ToInt32(dgwProducts.CurrentRow.Cells[0].Value)
+            });
+            LoadProducts();
+            MessageBox.Show("Deleted!");
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

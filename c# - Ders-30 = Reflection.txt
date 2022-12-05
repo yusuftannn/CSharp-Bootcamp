@@ -1,0 +1,81 @@
+class Program
+    {
+        static void Main(string[] args)
+        {
+            // DortIslem dortIslem = new DortIslem(2, 3);
+            // Console.WriteLine(dortIslem.Topla2());
+            // Console.WriteLine(dortIslem.Topla(3, 4));		-->> Topla ve Çarp kodlarında parantez içine yazdığımız için sayı belirttik.
+
+            var tip = typeof(DortIslem);
+
+            DortIslem dortIslem = (DortIslem)Activator.CreateInstance(tip,6,7);		-->> buradaki sayılar "Topla2" için girdik..
+            Console.WriteLine(dortIslem.Topla(4, 5));
+            Console.WriteLine(dortIslem.Topla2());
+
+            var instance = Activator.CreateInstance(tip, 6, 7);
+	
+	*****	// MethodInfo // Invoke //	*****
+          
+            MethodInfo metodinfo = instance.GetType().GetMethod("Topla2");	-->>Bir tipin istediğimiz metoduna ulaşabilir istersekte çalıştırabiliriz. ( kod okunuşu.) 
+            Console.WriteLine(metodinfo.Invoke(instance, null));			-->> invoke diyerek çalıştırdık..
+
+            Console.WriteLine("------------------------------------------");
+
+            var metodlar = tip.GetMethods();					->> reflection sayesinde metotları görebildik.
+            foreach (var info in metodlar)
+            {
+                Console.WriteLine("Metot Adı : {0}", info.Name);			-->> ekrana yazdırdık..
+                foreach (var parameterInfo in info.GetParameters())
+                {
+                    Console.WriteLine("Parametre : {0}", parameterInfo.Name);		-->> parametreleri görebildik..
+                }
+                foreach (var attribute in info.GetCustomAttributes())			-->> attribute varsa görebildik.
+                {
+                    Console.WriteLine("Attribute : {0}", attribute.GetType());
+                }
+            }
+            
+            Console.ReadLine();
+        }
+
+
+    }
+    public class DortIslem
+    {
+        private int _sayi1;
+        private int _sayi2;
+        public DortIslem(int sayi1, int sayi2)		
+        {
+            _sayi1 = sayi1;
+            _sayi2 = sayi2;
+        }
+       public DortIslem()
+        {
+              
+        }
+        public int Topla(int sayi1, int sayi2)			--> parantez içini doldurarak yukarıya sayı girmemizi ister
+        {
+            return sayi1 + sayi2;
+        }
+        public int Çarp(int sayi1, int sayi2)
+        {
+            return sayi1 * sayi2;
+        }
+        public int Topla2()		-->> parantez içini doldurmadığımız için yukarıdaki newlediğimiz kodun atadığını kullanır.
+        {
+            return _sayi1 + _sayi2;
+        }
+       [MetotName("Çarpma")]			-->>attribute yaptık(imza gibi diyebilir.) metot çarp2de ekranda "Attribute : Reflection.MetotNameAttribute" yazdı..
+        public int Çarp2()
+        {
+            return _sayi1 * _sayi2;
+        }
+    }
+
+    public class MetotNameAttribute : Attribute		-->> attribute gözükmesi için attribute sınıfı oluşturduk.. ( yazım kuralı önemli..) *( koymak istediğimiz isim+attribute : Attribute)
+    {
+                  public MetotNameAttribute(string name)
+                  {
+
+                  }
+    }

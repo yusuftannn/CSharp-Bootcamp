@@ -1,0 +1,10 @@
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\bin\Debug\Proje 1 - HESAP MAKİNESİ.exe.config
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\bin\Debug\Proje 1 - HESAP MAKİNESİ.exe
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\bin\Debug\Proje 1 - HESAP MAKİNESİ.pdb
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\obj\Debug\Proje 1 - HESAP MAKİNESİ.csproj.AssemblyReference.cache
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\obj\Debug\Proje_1___HESAP_MAKİNESİ.Form1.resources
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\obj\Debug\Proje_1___HESAP_MAKİNESİ.Properties.Resources.resources
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\obj\Debug\Proje 1 - HESAP MAKİNESİ.csproj.GenerateResource.cache
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\obj\Debug\Proje 1 - HESAP MAKİNESİ.csproj.CoreCompileInputs.cache
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\obj\Debug\Proje 1 - HESAP MAKİNESİ.exe
+C:\Users\yusuf\OneDrive\Masaüstü\Software\C#\Hesap Makinesi\Proje 1 - HESAP MAKİNESİ\obj\Debug\Proje 1 - HESAP MAKİNESİ.pdb

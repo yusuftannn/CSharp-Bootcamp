@@ -1,0 +1,53 @@
+-------- PRİVATE -------- 
+
+class Customer
+    {							-->> "int Id;" nin diğer bir yazımıda "private int Id {get; set;}"
+        int Id;							-->> nedeni private bir ifade yalnızca tanımlandığı blokta geçerli olur.
+							-->> yani "int Id" yalnızca kendi içindeki classlarda tanımlanır.
+	public void Save()					
+	{
+	   Id						-->> Id burada gözükür çünkü kendi bulunduğu classın içinde.!! 
+	}
+     }					
+    class Student
+    {
+        public void Save()
+        {
+            Customer customer = new Customer();
+            customer.Id					-->> Id gözükmez nedeni ise yukarıdaki 2.açıklamadadır..
+        }
+    }
+
+
+-------- PROTECTED -------- 
+
+class Customer
+    {
+        protected int Id { get; set; }			-->> ***Tanımladığımız zaman inheritance edildiği sınıflarda da kullanılır.
+        public void Save()			-->> ***Private ten tek farkı bu denilebilir..!!
+        {
+           
+        }
+
+        public void Deleted()
+        {
+            
+        }
+    }
+    class Student :Customer			-->> ":Customer" yazılarak inheritance edilmiş bir sınıf halini alır.		
+    {
+        public void Save2()
+        {
+              Id					-->> Yukarıdaki "protected int Id { get; set; }" koduyla ve de bu sınıfa eklenilen ":Customer" yazılarak
+        }					  class inheritance halini alır ve Id gözükmüş olur.!!
+    
+
+
+
+
+
+
+
+
+
+

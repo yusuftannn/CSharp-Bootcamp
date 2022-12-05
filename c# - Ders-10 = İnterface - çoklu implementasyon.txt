@@ -1,0 +1,73 @@
+ IWorker[] workers = new IWorker[3]
+            {
+                new Manager(),
+                new Worker(),
+                new Robot() 
+            };
+            foreach (var worker in workers)
+            {
+                worker.Work();
+            }
+            IEat[] eats = new IEat[2]
+            {
+                new Manager(),
+                new Worker(),
+            };
+        }
+    }
+
+// SOLID, Interface Segregation
+
+    interface IWorker				-->> bu şekilde ayrı ayrı yazarak istediğimize atabiliriz..!
+    {
+        void Work();
+    }
+    interface IEat
+    {
+        void Eat();
+    }
+    interface ISalary
+    {
+        void GetSalary();
+    }
+    class Manager : IWorker, IEat, ISalary		-->> manager de "Eat" olmasaydı IEat yazılmazdı.
+    {
+        public void Eat()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetSalary()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Work()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    class Worker : IWorker, IEat, ISalary
+    {
+        public void Eat()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GetSalary()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Work()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    class Robot : IWorker			-->> Yalnızca Work yazdık çünkü "Robotta" yemek ve maaş yani Eat ve GetSalary olamayacağı için
+    {
+        public void Work()
+        {
+            throw new NotImplementedException();
+        }
+    }

@@ -1,0 +1,58 @@
+- Form1[Design] kısmından > Toolbax içinden 3 tane Label, 3 tane TextBox ekledik ve alt alta dizdik.
+- daha sonra containers(toolbax içinde) menüsünden GroupBox ekledik ve düzenldeğimiz label ve textboxları içine koyduk...
+
+Add a product
+	Name	    	--------------
+	Unit Price	    	--------------
+	Stock Amount	--------------
+			    Add		-->> butonu ekledik..
+
+
+- ürün ekleme tasarımımızı yaptık.
+- Tek tek labelları, textboxların name ini özelliklerden  kolaylık olsun diye değiştirdik (örn: Name labelın  özelliklerden namei lblName, Add butonun namei btnAdd)
+
+ProductDal classın en altına
+
+       public void Add(Product product)
+        {
+            ConnectionControl();
+            SqlCommand command = new SqlCommand(
+                "Insert into Products values(@name,@unitPrice,@stockAmount)", _connection);
+            command.Parameters.AddWithValue("@name", product.Name);
+            command.Parameters.AddWithValue("@unitPrice", product.UnitPrice);
+            command.Parameters.AddWithValue("@stockAmount", product.StockAmount);
+            command.ExecuteNonQuery();
+
+            _connection.Close();
+        }
+
+- Form1.cs[Design] kısmından tasarladığımız alana gelip "Add" butonuna çift tıklıyoruz
+- "btnAdd" adında oluşturduğumuz butonun kod kısmı geliyor ve..
+ 
+public Form1()
+        {
+            InitializeComponent();
+        }
+        ProductDal _productDal = new ProductDal();
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            LoadProducts();
+        }
+
+        private void LoadProducts()
+        {
+            dgwProducts.DataSource = _productDal.GetAll();			-->> sağ tık refactoring yapıp metot haline getirdik..
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            _productDal.Add(new Product
+            {
+                Name = tbxName.Text,
+                UnitPrice = Convert.ToDecimal(tbxUnitPrice.Text),
+                StockAmount = Convert.ToInt32(tbxStockAmount.Text)
+            });
+            LoadProducts();						-->> metot haline getirdiğimiz ismi buraya ekliyoruz çünkü;
+            MessageBox.Show("Product added!");				-->> bu sayede ürün eklediğimizde ürün otomatik ekranda da gözükür.
+        }								-->> ve ekleme yaptığımızda bir mesaj belirtmesi için mesaj kutusu oluşturduk.
+

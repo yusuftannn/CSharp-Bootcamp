@@ -1,0 +1,62 @@
+- Form1[Design] sağ üstüne "Search" adında bir label ve yazıcağımız "textbox" ekleriz..
+- daha sonra "Textbox" ın üstüne çift tıklarız ve kod kısmı açılır.
+
+private void SearchProducts(string key)						-->> üstt tarafa da bu yazılır..
+        {
+           // dgwProducts.DataSource = _productDal.GetAll().Where(p => p.Name.Contains(key)).ToList();	-->> örneğin "Laptop" ürünümüz ararken l yani küçük "l" harfini yazarken bu koda ile listeye dökmez..(direkt listeden alınan bir kod)
+           var result = _productDal.GetByName(key);				-->> direkt veri tabanından sorguyu göndeririz..	-->> bu kodda ise "Laptop" ürünümüzü ararken küçük l de yazsak listeye "Laptop" gönderir. (daha avantajlı)
+            dgwProducts.DataSource = result;
+          
+        }
+
+
+private void tbxSearch_TextChanged(object sender, EventArgs e)			-->> ilk bunu yazarız.
+        {
+            SearchProducts(tbxSearch.Text);
+        }
+
+-------- ProductDal classı içine ------------ 
+public List<Product> GetByName(string key)
+        {
+            using (ETradeContext context = new ETradeContext())
+            {
+                return context.Products.Where(p=>p.Name.Contains(key)).ToList();		-->> veritabanına sadece ihtiyacı olan veriyi alır. ( daha performanslı )
+            }	
+        }
+
+FİLTRELEME
+
+ public List<Product> GetByUnitPrice(decimal price)		*** Fiyata göre arama ***
+        {
+            using (ETradeContext context = new ETradeContext())
+            {
+                return context.Products.Where(p => p.UnitPrice >= price).ToList();
+            }
+        }
+        public List<Product> GetByUnitPrice(decimal min, decimal max)
+        {
+            using (ETradeContext context = new ETradeContext())
+            {
+                return context.Products.Where(p => p.UnitPrice >= min && p.UnitPrice <= max).ToList();
+            }
+        }
+
+public Product GetById(int id)				-->>>*** ID ye göre arama ***
+        {
+            using (ETradeContext context = new ETradeContext())
+            {
+                var result = context.Products.FirstOrDefault(p => p.Id == id);			-->> yazdığımız "id" ye uyan ilk kaydı getir..
+                return result;
+            }
+        }
+-->> Form1[Design] dan sol üste "Get By Id" adında bir buton ekledik ve çift tıklayıp kod kısmına geçtik.
+
+ private void tbxGetById_Click(object sender, EventArgs e)
+        {
+            _productDal.GetById(1);
+        }
+
+
+
+
+
